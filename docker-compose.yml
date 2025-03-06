@@ -15,7 +15,7 @@ services:
       - DB_HOST=db
       - DB_USER=web
       - DB_PASSWORD=pass
-      - DB_NAME=goapi
+      - DB_NAME=movies4u
     depends_on:
       db:
         condition: service_healthy
@@ -26,7 +26,7 @@ services:
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: goapi
+      MYSQL_DATABASE: movies4u
       MYSQL_USER: web
       MYSQL_PASSWORD: pass
     ports:

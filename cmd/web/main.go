@@ -32,7 +32,7 @@ func main() {
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
 	addr := flag.String("addr", ":4000", "Http Server Listening Port")
-	dsn := flag.String("dsn", "web:pass@/goapi?parseTime=true", "My sql datasource name")
+	dsn := flag.String("dsn", "web:pass@/movies4u?parseTime=true", "My sql datasource name")
 	jsonFilePath := flag.String("json", "./data/films.json", "Path to the JSON file containing film data")
 
 	flag.Parse()
