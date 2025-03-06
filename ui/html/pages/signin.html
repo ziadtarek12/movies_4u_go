@@ -1,0 +1,39 @@
+{{define "scripts"}}
+{{end}}
+{{define "main"}}
+
+<h2 class="film-info">Register</h2>
+
+    {{with .Form.FieldErrors.name}}
+        <label class='error'>{{.}}</label>
+    {{end}}
+
+    <form action="/user/signin" method="post" class="login-form">
+        <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
+        <div class="">
+            {{with .Form.FieldErrors.username}}
+                <label class='error'>{{.}}</label>
+            {{end}}
+            <input class="login-input" autofocus type="text" name="username" placeholder="Username" value="{{.Form.UserName}}">
+        </div>
+        <div class="">
+            {{with .Form.FieldErrors.email}}
+                 <label class='error'>{{.}}</label>
+            {{end}}
+            <input class="login-input" type="email" name="email" placeholder="Email Address" value="{{.Form.Email}}">
+        </div>
+        <div class="">
+            {{with .Form.FieldErrors.password}}
+                <label class='error'>{{.}}</label>
+            {{end}}
+            <input class="login-input" type="password" name="password" placeholder="Password">
+        </div>
+        <div class="">
+            <input class="login-input" type="password" name="confirm_password" placeholder="Confirm Password">
+        </div>
+        <input class="login-button" type="submit" value="Register">
+    </form>
+
+    <div class="film-info">Already have an account? <a href="/user/login" class="film-info">Log In here.</a></div>
+
+{{end}}

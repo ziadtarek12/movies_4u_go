@@ -1,0 +1,14 @@
+{{define "nav"}}
+{{with .IsAuthenticated}}
+<nav>
+    <div class="navbar">
+        <div onclick="Home()" class="active" id="home-button">Home</div>
+        <div onclick="Search()" class="" id="search-button">Search</div>
+        <div onclick="location.assign('/user/logout')" id="logout-button">Logout</div>
+        <div onclick="Watchlist()" id="watchlist-button">Watchlist</div>
+        <div onclick="Watchedlist()" id="watchedlist-button">Watchedlist</div>
+        <div onclick="Random()" id="random-button">Random</div>
+    </div>
+</nav>
+{{end}}
+{{end}}

@@ -1,0 +1,30 @@
+{{define "scripts"}}
+{{end}}
+{{define "main"}}
+
+<h2 class="film-info">Login</h2>
+
+{{range .Form.NonFieldErrors}}
+    <div class='error'>{{.}}</div>
+{{end}}
+
+<form action="/user/login" method="post" class="login-form">
+    <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
+    <div class="form-group">
+        {{with .Form.FieldErrors.email}}
+        <label class='error'>{{.}}</label>
+        {{end}}
+        <input autofocus class="login-input" type="email" name="email" placeholder="Email">
+    </div>
+    <div class="form-group">
+        {{with .Form.FieldErrors.password}}
+        <label class='error'>{{.}}</label>
+        {{end}}
+        <input class="login-input" type="password" name="password" placeholder="Password">
+    </div>
+    <input class="login-button" type="submit" value="Login">
+</form>
+
+<div class="film-info">Don't have an account? <a href="/user/signin" class="film-info">Register here.</a></div>
+
+{{end}}

@@ -1,0 +1,40 @@
+{{define "base"}}
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <title>Movies4u</title>
+        <link rel='stylesheet' href='/static/css/styles.css'>
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400..700;1,400..700&display=swap'>
+        <meta name="csrf-token" content="{{.CSRFToken}}">
+        {{template "scripts" .}}
+        
+    </head>
+    {{template "nav" .}}
+    <body>
+        <main>
+            {{with .Flash}}
+                <div>{{.}}</div>
+            {{end}}
+            {{template "main" .}}
+        </main>
+        <script>
+            // Include CSRF token in AJAX requests
+            document.addEventListener('DOMContentLoaded', function() {
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                const forms = document.querySelectorAll('form');
+                forms.forEach(form => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'csrf_token';
+                    input.value = csrfToken;
+                    form.appendChild(input);
+                });
+            });
+        </script>
+        {{ if .UserID }}
+        <div id="user_id" style="display: none;">{{ .UserID }}</div>
+        {{ end }}
+    </body>
+</html>
+{{end}}
