@@ -32,12 +32,13 @@ func main() {
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
 	addr := flag.String("addr", ":4000", "Http Server Listening Port")
-	dsn := flag.String("dsn", "web:pass@/movies4u?parseTime=true", "My sql datasource name")
 	jsonFilePath := flag.String("json", "./data/films.json", "Path to the JSON file containing film data")
 
 	flag.Parse()
 
-	db, err := gorm.Open(mysql.Open(*dsn), &gorm.Config{})
+	dsn := os.Getenv("DB_USER") + ":" + os.Getenv("DB_PASSWORD") + "@tcp(" + os.Getenv("DB_HOST") + ":3306)/" + os.Getenv("DB_NAME") + "?parseTime=true"
+
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		errorLog.Fatal(err)
 	}
@@ -72,20 +73,15 @@ func main() {
 		errorLog.Fatal(err)
 	}
 
-	
-	
 	dataLoader := dataloader.DataLoader{DB: db}
 	err = dataLoader.LoadFilmsFromFile(*jsonFilePath)
 	if err != nil {
-		if errors.Is(err, dataloader.ErrDataLoaded){
+		if errors.Is(err, dataloader.ErrDataLoaded) {
 			infoLog.Println("Loaded Database")
-		}else{
+		} else {
 			errorLog.Fatal(err)
 		}
-		
 	}
-	
-	
 
 	tlsConfig := &tls.Config{
 		CurvePreferences: []tls.CurveID{tls.X25519, tls.CurveP256},
